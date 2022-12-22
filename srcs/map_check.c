@@ -6,12 +6,13 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 05:46:37 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/17 06:33:12 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/20 19:16:42 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 #define ERROR ", must be all walls."
+#define OCCURENCES 7
 
 int	ft_check_borders(t_game *g)
 {
@@ -50,7 +51,7 @@ static int	ft_nb_count_occurences(int *arr, int n, size_t size)
 	return (r);
 }
 
-static void	ft_display_infos(t_game *g, int occur[5])
+static void	ft_display_infos(t_game *g, int occur[OCCURENCES])
 {
 	ft_printf("Displaying informations about (%s)...\n\n", g->map.file.name);
 	ft_printf("The width of this map is %d.\n", g->win.width);
@@ -59,21 +60,25 @@ static void	ft_display_infos(t_game *g, int occur[5])
 	ft_printf("This map contains %d wall(s).\n", occur[1]);
 	ft_printf("This map contains %d player(s).\n", occur[2]);
 	ft_printf("This map contains %d exit(s).\n", occur[3]);
-	ft_printf("This map contains %d collectible(s).\n\n", occur[4]);
+	ft_printf("This map contains %d collectible(s).\n", occur[4]);
+	if (occur[5] + occur[6] == 1)
+		ft_printf("This map contains %d enemy.\n\n", occur[5] + occur[6]);
+	else
+		ft_printf("This map contains %d enemies.\n\n", occur[5] + occur[6]);
 }
 
 int	ft_check_uniqueness(t_game *g)
 {
 	int	i;
 	int	j;
-	int	occur[5];
+	int	occur[OCCURENCES];
 
-	ft_bzero(occur, 5 * sizeof(int));
+	ft_bzero(occur, OCCURENCES * sizeof(int));
 	i = -1;
 	while (++i < g->win.height)
 	{
 		j = -1;
-		while (++j < 5)
+		while (++j < OCCURENCES)
 			occur[j] += ft_nb_count_occurences(g->map.arr[i], j, g->win.width);
 	}
 	ft_display_infos(g, occur);
@@ -83,5 +88,7 @@ int	ft_check_uniqueness(t_game *g)
 		return (ft_error(g, "Use one exit (and only one) !!"));
 	if (!occur[4])
 		return (ft_error(g, "Use at least one collectible !!"));
+	g->collectibles = occur[4];
+	g->n_enemies = occur[5] + occur[6];
 	return (0);
 }

@@ -6,12 +6,13 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 02:18:57 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/17 05:44:52 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/21 21:46:21 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
+/*
 static void	ft_print_map(t_game *g)
 {
 	int	i;
@@ -26,10 +27,53 @@ static void	ft_print_map(t_game *g)
 		ft_printf("\n");
 	}
 }
+*/
+
+static int	ft_init_sprites(t_game *g)
+{
+	if (ft_init_player(g))
+		return (1);
+	if (ft_init_exit(g))
+		return (1);
+	if (ft_init_collectibles(g))
+		return (1);
+	if (ft_init_wall(g))
+		return (1);
+	if (ft_init_ground(g))
+		return (1);
+	if (ft_init_enemy(g))
+		return (1);
+	if (ft_init_border(g))
+		return (1);
+	return (0);
+}
+
+int	ft_player_pos(t_game *g)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < g->win.height)
+	{
+		j = -1;
+		while (++j < g->win.width)
+		{
+			if (g->map.arr[i][j] == 2)
+			{
+				g->sprites.player.r = i;
+				g->sprites.player.c = j;
+			}
+		}
+	}
+	return (0);
+}
 
 int	ft_check_and_init(t_game *g, char *map)
 {
 	g->map.file.name = map;
+	g->paused = 0;
+	g->moves = 0;
 	if (ft_check_extension(g))
 		return (1);
 	if (ft_read_file(g))
@@ -38,6 +82,11 @@ int	ft_check_and_init(t_game *g, char *map)
 		return (1);
 	if (ft_check_map(g))
 		return (1);
-	ft_print_map(g);
+	if (ft_init_sprites(g))
+		return (1);
+	if (ft_player_pos(g))
+		return (1);
+	if (ft_launch_enemies(g))
+		return (1);
 	return (0);
 }

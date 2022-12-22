@@ -6,13 +6,13 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/17 01:18:36 by absalhi           #+#    #+#              #
-#    Updated: 2022/12/17 05:59:49 by absalhi          ###   ########.fr        #
+#    Updated: 2022/12/21 20:55:46 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	so_long
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -O3
 CC		=	cc
 RM		=	rm -rf
 
@@ -21,8 +21,9 @@ GREEN	=	'\033[32m'
 GRAY	=	'\033[2;37m'
 ITALIC	=	'\033[3m'
 
-_SRCS	=	main.c map_utils.c map_check.c so_long_utils.c so_long_errors.c \
-			ft_functions_1.c
+_SRCS	=	main.c map_utils.c map_check.c so_long_utils.c so_long_errors.c		\
+			ft_functions_1.c ft_player_moves.c ft_render.c ft_init_sprites.c	\
+			ft_init_sprites_2.c ft_new_sprite.c ft_new_sprite_2.c ft_enemies.c
 SRCS	=	$(addprefix srcs/, $(_SRCS))
 OBJS	=	$(SRCS:.c=.o)
 

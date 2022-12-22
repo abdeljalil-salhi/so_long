@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 02:18:09 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/17 06:33:37 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/20 12:06:42 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,9 @@ int	ft_set_ceil_type(t_game *g, char c)
 		return (3);
 	else if (c == 'C' || c == 'c')
 		return (4);
+	else if (c == 'H' || c == 'h')
+		return (5);
+	else if (c == 'V' || c == 'v')
+		return (6);
 	return (ft_error(g, "JUST PROTECTION IN CASE ?? Invalid CHARACTER.") + 69);
 }
