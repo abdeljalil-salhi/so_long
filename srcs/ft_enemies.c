@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 18:51:23 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/21 22:01:56 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/23 23:33:22 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_fill_enemy(t_game *g, t_coords p, int type, int *id)
 	g->enemies[*id].pos = p;
 	g->enemies[*id].dead = 0;
 	g->enemies[*id].next = 1;
-	g->enemies[*id].deg = 0;
+	g->enemies[*id].deg = 1 - g->enemies[*id].type;
 	(*id)++;
 	return (0);
 }
@@ -75,28 +75,28 @@ int	ft_move_enemies(t_game *g)
 			{
 				if (p.c + 1 < g->win.width && g->map.arr[p.r][p.c + 1] != 0)
 					g->enemies[i].next = 0;
-				else if (p.c + 1 < g->win.width && g->map.arr[p.r][p.c + 1] != 1)
+				else if (p.c + 1 < g->win.width && g->map.arr[p.r][p.c + 1] == 0)
 				{
 					g->map.arr[p.r][p.c] = 0;
 					g->map.arr[p.r][p.c + 1] = 5;
 					g->enemies[i].deg = 1;
 					g->enemies[i].pos.c++;
 				}
-				else if (p.c + 1 < g->win.width && g->map.arr[p.r][p.c + 1] == 2)
+				if (p.c + 1 == g->sprites.player.c && p.r == g->sprites.player.r)
 					ft_game_over(g);
 			}
 			else
 			{
-				if (p.c - 1 > 0 && g->map.arr[p.r][p.c - 1] == 1)
+				if (p.c - 1 > 0 && g->map.arr[p.r][p.c - 1] != 0)
 					g->enemies[i].next = 1;
-				else if (p.c - 1 > 0 && g->map.arr[p.r][p.c - 1] != 1)
+				else if (p.c - 1 > 0 && g->map.arr[p.r][p.c - 1] == 0)
 				{
 					g->map.arr[p.r][p.c] = 0;
 					g->map.arr[p.r][p.c - 1] = 5;
 					g->enemies[i].deg = 3;
 					g->enemies[i].pos.c--;
 				}
-				else if (p.c - 1 > 0 && g->map.arr[p.r][p.c - 1] == 2)
+				if (p.c - 1 == g->sprites.player.c && p.r == g->sprites.player.r)
 					ft_game_over(g);
 			}
 		}
@@ -106,28 +106,28 @@ int	ft_move_enemies(t_game *g)
 			{
 				if (p.r + 1 < g->win.height && g->map.arr[p.r + 1][p.c] != 0)
 					g->enemies[i].next = 0;
-				else if (p.r + 1 < g->win.height && g->map.arr[p.r + 1][p.c] != 1)
+				else if (p.r + 1 < g->win.height && g->map.arr[p.r + 1][p.c] == 0)
 				{
 					g->map.arr[p.r][p.c] = 0;
 					g->map.arr[p.r + 1][p.c] = 6;
 					g->enemies[i].deg = 0;
 					g->enemies[i].pos.r++;
 				}
-				else if (p.r + 1 < g->win.height && g->map.arr[p.r + 1][p.c] == 2)
+				if (p.r + 1 == g->sprites.player.r && p.c == g->sprites.player.c)
 					ft_game_over(g);
 			}
 			else
 			{
 				if (p.r - 1 > 0 && g->map.arr[p.r - 1][p.c] != 0)
 					g->enemies[i].next = 1;
-				else if (p.r - 1 > 0 && g->map.arr[p.r - 1][p.c] != 1)
+				else if (p.r - 1 > 0 && g->map.arr[p.r - 1][p.c] == 0)
 				{
 					g->map.arr[p.r][p.c] = 0;
 					g->map.arr[p.r - 1][p.c] = 6;
 					g->enemies[i].deg = 2;
 					g->enemies[i].pos.r--;
 				}
-				else if (p.r - 1 > 0 && g->map.arr[p.r - 1][p.c] == 2)
+				if (p.r - 1 == g->sprites.player.r && p.c == g->sprites.player.c)
 					ft_game_over(g);
 			}
 		}

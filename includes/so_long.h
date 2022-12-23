@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:55:11 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/21 21:45:34 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/23 21:49:33 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ int		ft_game_over(t_game *g);
 
 int		ft_count_occurences(char *str, char c);
 int		ft_free_tab(void **tab);
+int		ft_free_double_int(int **tab, size_t size);
 int		ft_free(void *ptr);
 int		ft_close(int fd);
 

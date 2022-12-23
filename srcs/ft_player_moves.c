@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 03:09:41 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/21 21:50:37 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/23 21:55:12 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	ft_check_move(t_game *g, int r, int c)
 	if (g->map.arr[r][c] == 4)
 		g->collectibles--;
 	if (g->map.arr[r][c] == 3 && g->sprites.exit.open == 1)
+		ft_game_over(g);
+	if (g->map.arr[r][c] == 5 || g->map.arr[r][c] == 6)
 		ft_game_over(g);
 	if (g->map.arr[r][c] == 3)
 		return (1);

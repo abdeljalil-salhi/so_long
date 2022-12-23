@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:25:53 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/21 21:51:55 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/23 21:52:19 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	ft_key_hook(int keycode, t_game *g)
 int	ft_game_over(t_game *g)
 {
 	ft_printf("GAME OVER\n");
-	ft_free_tab((void **)g->map.arr);
+	ft_free_double_int(g->map.arr, (size_t) g->win.height);
 	exit(0);
 }
 
@@ -50,8 +50,8 @@ int	main(int argc, char **argv)
 	g.mlx = mlx_init();
 	g.win.ref = mlx_new_window(g.mlx, g.win.width * PX + 32,
 			g.win.height * PX + 32, "My so_long :)");
+	mlx_loop_hook(g.mlx, ft_render, &g);
 	mlx_hook(g.win.ref, ON_DESTROY, 0L, ft_close_window, 0);
 	mlx_key_hook(g.win.ref, ft_key_hook, &g);
-	mlx_loop_hook(g.mlx, ft_render, &g);
 	mlx_loop(g.mlx);
 }

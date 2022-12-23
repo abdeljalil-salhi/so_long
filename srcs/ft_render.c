@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 03:18:32 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/21 21:49:53 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/23 16:41:54 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ int	ft_draw_borders(t_game *g)
 		j = -1;
 		while (++j < g->win.width + 2)
 		{
-			/*if (i == 1)
-				if (ft_new_border(g, i, j, g->sprites.wall.path[0]))
-					return (1);*/
 			if (i == 0)
 				if (ft_new_border(g, i, j, g->sprites.border[0]))
 					return (1);

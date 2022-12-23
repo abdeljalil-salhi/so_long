@@ -6,22 +6,37 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:33:20 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/21 21:29:11 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/23 23:34:23 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
+static t_enemies	ft_find_enemy(t_game *g, int r, int c)
+{
+	int			i;
+	t_enemies	empty;
+
+	ft_bzero(&empty, sizeof(t_enemies));
+	i = -1;
+	while (++i < g->n_enemies)
+		if (g->enemies[i].pos.r == r && g->enemies[i].pos.c == c)
+			return (g->enemies[i]);
+	return (empty);
+}
+
 int	ft_new_enemy(t_game *g, int row, int column, int type)
 {
-	void	*img;
-	int		frame;
-	int		deg;
-	int		width;
-	int		height;
+	void		*img;
+	int			frame;
+	int			deg;
+	int			width;
+	int			height;
+	t_enemies	enemy;
 
+	enemy = ft_find_enemy(g, row, column);
 	frame = g->sprites.enemy.frame;
-	deg = type + 1;
+	deg = enemy.deg;
 	img = mlx_xpm_file_to_image(g->mlx, g->sprites.enemy.path[type][deg][frame],
 			&width, &height);
 	if (!img)

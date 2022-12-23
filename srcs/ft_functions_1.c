@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 03:50:15 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/20 11:54:22 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/23 23:03:49 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ int	ft_free_tab(void **tab)
 
 	i = -1;
 	while (tab[++i])
+		free(tab[i]);
+	free(tab);
+	return (1);
+}
+
+int	ft_free_double_int(int **tab, size_t size)
+{
+	int	i;
+
+	i = -1;
+	while ((size_t)++i < size)
 		free(tab[i]);
 	free(tab);
 	return (1);
