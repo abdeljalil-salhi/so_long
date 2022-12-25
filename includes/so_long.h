@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:55:11 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/23 21:49:33 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/25 18:07:18 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,16 @@
 
 # include "../libft/libft.h"
 # include <fcntl.h>
+# include <time.h>
 # include <mlx.h>
 
 # define FPS 30
 # define NPX 32
 # define PX 32 + 32
+# define COLOR 0x00FF0000
+# define COLLEC_TYPES 7
+# define ESC_MESSAGE "Press [ESC] to quit..."
+# define P_MESSAGE "Press [P] to resume..."
 
 typedef struct s_coords
 {
@@ -33,17 +38,6 @@ typedef struct s_window
 	int		width;
 	int		height;
 }	t_window;
-
-typedef struct s_image
-{
-	void		*ref;
-	int			width;
-	int			height;
-	char		*addr;
-	int			bpp;
-	int			length;
-	int			endian;
-}	t_image;
 
 typedef struct s_file
 {
@@ -59,15 +53,14 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	char	*path[5][2];
-	int		r;
-	int		c;
-	int		frame;
-	int		standing;
-	int		energy;
-	int		dying;
-	int		dead;
-	int		deg;
+	char		*path[5][2];
+	t_coords	pos;
+	int			frame;
+	int			standing;
+	int			energy;
+	int			dying;
+	int			dead;
+	int			deg;
 }	t_player;
 
 typedef struct s_exit
@@ -83,6 +76,8 @@ typedef struct s_collec
 {
 	char	*path[7];
 	int		frame;
+	int		next;
+	int		y;
 }	t_collec;
 
 typedef struct s_wall
@@ -114,6 +109,14 @@ typedef struct s_sprites
 	char		*border[4];
 }	t_sprites;
 
+typedef struct s_collecs
+{
+	int			id;
+	int			type;
+	t_coords	pos;
+	int			init;
+}	t_collecs;
+
 typedef struct s_enemies
 {
 	int			id;
@@ -124,6 +127,19 @@ typedef struct s_enemies
 	int			next;
 }	t_enemies;
 
+typedef struct s_tip
+{
+	char	*message;
+	int		display;
+}	t_tip;
+
+typedef struct s_alloc
+{
+	int	map;
+	int	collectibles;
+	int	enemies;
+}	t_alloc;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -131,11 +147,15 @@ typedef struct s_game
 	t_map		map;
 	char		*exit_message;
 	t_sprites	sprites;
-	int			collectibles;
+	int			n_collectibles;
+	t_collecs	*collectibles;
 	int			n_enemies;
-	t_enemies	*enemies; // h = 5 (broly), v = 6
+	t_enemies	*enemies;
 	int			paused;
+	int			game_over;
 	int			moves;
+	t_tip		tip;
+	t_alloc		allocated;
 }	t_game;
 
 enum
@@ -155,6 +175,7 @@ enum
 	KEY_D = 2,
 	KEY_S = 1,
 	KEY_W = 13,
+	KEY_P = 35,
 	ESC = 53,
 	ARROW_LEFT = 123,
 	ARROW_RIGHT = 124,
@@ -162,49 +183,63 @@ enum
 	ARROW_UP = 126
 };
 
-int		ft_check_and_init(t_game *g, char *map);
-int		ft_check_extension(t_game *g);
-int		ft_read_file(t_game *g);
-int		ft_init_map(t_game *g);
-int		ft_check_map(t_game *g);
-int		ft_check_borders(t_game *g);
-int		ft_check_uniqueness(t_game *g);
-int		ft_set_ceil_type(t_game *g, char c);
-int		ft_player_pos(t_game *g);
-int		ft_launch_enemies(t_game *g);
-int		ft_move_enemies(t_game *g);
-int		ft_animate_enemies(t_game *g);
+int			ft_check_and_init(t_game *g, char *map);
+int			ft_check_extension(t_game *g);
+int			ft_read_file(t_game *g);
+int			ft_init_map(t_game *g);
+int			ft_check_map(t_game *g);
+int			ft_check_borders(t_game *g);
+int			ft_check_uniqueness(t_game *g);
+int			ft_set_ceil_type(t_game *g, char c);
+int			ft_player_pos(t_game *g);
+int			ft_fill_enemy(t_game *g, t_coords p, int type, int *id);
+int			ft_launch_enemies(t_game *g);
+int			ft_fill_collectible(t_game *g, t_coords p, int *id);
+int			ft_launch_collectibles(t_game *g);
+int			ft_move_enemies(t_game *g);
+int			ft_animate_enemies(t_game *g);
+int			ft_animate_collectibles(t_game *g);
 
-int		ft_init_player(t_game *g);
-int		ft_init_exit(t_game *g);
-int		ft_init_collectibles(t_game *g);
-int		ft_init_wall(t_game *g);
-int		ft_init_ground(t_game *g);
-int		ft_init_enemy(t_game *g);
-int		ft_init_border(t_game *g);
-int		ft_new_wall(t_game *g, int row, int column);
-int		ft_new_ground(t_game *g, int row, int column);
-int		ft_new_player(t_game *g, int row, int column);
-int		ft_new_exit(t_game *g, int row, int column);
-int		ft_new_collectible(t_game *g, int row, int column);
-int		ft_new_enemy(t_game *g, int row, int column, int type);
-int		ft_new_border(t_game *g, int row, int column, char *path);
-int		ft_render(t_game *g);
-int		ft_draw(t_game *g);
+int			ft_init_player(t_game *g);
+int			ft_init_exit(t_game *g);
+int			ft_init_collectibles(t_game *g);
+int			ft_init_wall(t_game *g);
+int			ft_init_ground(t_game *g);
+int			ft_init_enemy(t_game *g);
+int			ft_init_border(t_game *g);
+int			ft_new_wall(t_game *g, int row, int column);
+int			ft_new_ground(t_game *g, int row, int column);
+int			ft_new_player(t_game *g, int row, int column);
+int			ft_new_exit(t_game *g, int row, int column);
+int			ft_new_collectible(t_game *g, int row, int column);
+int			ft_new_enemy(t_game *g, int row, int column, int type);
+int			ft_new_border(t_game *g, int row, int column, char *path);
+int			ft_new_centered(t_game *g, char *path);
+int			ft_new_tip(t_game *g, int color);
+int			ft_check_components(t_game *g, int frame);
+int			ft_draw_upper_layer(t_game *g);
+int			ft_render(t_game *g);
+int			ft_draw_borders(t_game *g);
+int			ft_draw(t_game *g);
 
-void	ft_exit_error(char *str);
-int		ft_error(t_game *g, char *str);
-int		ft_game_over(t_game *g);
+void		ft_exit_error(t_game *g, char *str);
+int			ft_error(t_game *g, char *str);
+void		ft_game_paused(t_game *g);
+void		ft_game_over(t_game *g);
+int			ft_free_exit(t_game *g);
 
-int		ft_count_occurences(char *str, char c);
-int		ft_free_tab(void **tab);
-int		ft_free_double_int(int **tab, size_t size);
-int		ft_free(void *ptr);
-int		ft_close(int fd);
+int			ft_count_occurences(char *str, char c);
+int			ft_free_tab(void **tab);
+int			ft_free_double_int(int **tab, size_t size);
+int			ft_free(void *ptr);
+int			ft_close(int fd);
 
-int		ft_move_player_left(t_game *g);
-int		ft_move_player_right(t_game *g);
-int		ft_move_player_up(t_game *g);
-int		ft_move_player_down(t_game *g);
+int			ft_move_player_left(t_game *g);
+int			ft_move_player_right(t_game *g);
+int			ft_move_player_up(t_game *g);
+int			ft_move_player_down(t_game *g);
+
+t_enemies	ft_find_enemy(t_game *g, int r, int c);
+t_collecs	ft_find_collectible(t_game *g, int r, int c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 02:18:09 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/20 12:06:42 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/25 18:03:23 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int	ft_init_map(t_game *g)
 			g->map.arr[s.i][s.j] = ft_set_ceil_type(g, s.row[s.j]);
 		free(s.row);
 	}
+	g->allocated.map = 1;
 	return (ft_close(g->map.file.fd));
 }
 

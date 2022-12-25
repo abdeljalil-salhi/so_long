@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 02:18:57 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/21 21:46:21 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/25 18:09:51 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int	ft_player_pos(t_game *g)
 		{
 			if (g->map.arr[i][j] == 2)
 			{
-				g->sprites.player.r = i;
-				g->sprites.player.c = j;
+				g->sprites.player.pos.r = i;
+				g->sprites.player.pos.c = j;
 			}
 		}
 	}
@@ -73,6 +73,7 @@ int	ft_check_and_init(t_game *g, char *map)
 {
 	g->map.file.name = map;
 	g->paused = 0;
+	g->game_over = 0;
 	g->moves = 0;
 	if (ft_check_extension(g))
 		return (1);
@@ -85,6 +86,8 @@ int	ft_check_and_init(t_game *g, char *map)
 	if (ft_init_sprites(g))
 		return (1);
 	if (ft_player_pos(g))
+		return (1);
+	if (ft_launch_collectibles(g))
 		return (1);
 	if (ft_launch_enemies(g))
 		return (1);

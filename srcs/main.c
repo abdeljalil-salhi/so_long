@@ -6,21 +6,16 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:25:53 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/23 21:52:19 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/25 18:09:39 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-static int	ft_close_window(void)
-{
-	exit(0);
-}
-
 static int	ft_key_hook(int keycode, t_game *g)
 {
 	if (keycode == ESC)
-		ft_close_window();
+		ft_free_exit(g);
 	else if (keycode == ARROW_LEFT || keycode == KEY_A)
 		ft_move_player_left(g);
 	else if (keycode == ARROW_RIGHT || keycode == KEY_D)
@@ -29,13 +24,28 @@ static int	ft_key_hook(int keycode, t_game *g)
 		ft_move_player_up(g);
 	else if (keycode == ARROW_DOWN || keycode == KEY_S)
 		ft_move_player_down(g);
+	else if (keycode == KEY_P && !g->game_over)
+		ft_game_paused(g);
 	return (0);
 }
 
-int	ft_game_over(t_game *g)
+void	ft_game_paused(t_game *g)
+{
+	g->paused = !g->paused;
+}
+
+void	ft_game_over(t_game *g)
 {
 	ft_printf("GAME OVER\n");
+	g->paused = 1;
+	g->game_over = 1;
+}
+
+int	ft_free_exit(t_game *g)
+{
 	ft_free_double_int(g->map.arr, (size_t) g->win.height);
+	free(g->collectibles);
+	free(g->enemies);
 	exit(0);
 }
 
@@ -43,15 +53,16 @@ int	main(int argc, char **argv)
 {
 	t_game	g;
 
+	ft_bzero(&g.allocated, sizeof(t_alloc));
 	if (argc != 2)
-		ft_exit_error("Usage: ./so_long [filename].ber");
+		ft_exit_error(&g, "Usage: ./so_long [filename].ber");
 	if (ft_check_and_init(&g, argv[1]))
-		ft_exit_error(g.exit_message);
+		ft_exit_error(&g, g.exit_message);
 	g.mlx = mlx_init();
-	g.win.ref = mlx_new_window(g.mlx, g.win.width * PX + 32,
-			g.win.height * PX + 32, "My so_long :)");
-	mlx_loop_hook(g.mlx, ft_render, &g);
-	mlx_hook(g.win.ref, ON_DESTROY, 0L, ft_close_window, 0);
+	g.win.ref = mlx_new_window(g.mlx, g.win.width * PX + NPX,
+			g.win.height * PX + NPX + 10, "My so_long :)");
+	mlx_hook(g.win.ref, ON_DESTROY, 0L, ft_free_exit, &g);
 	mlx_key_hook(g.win.ref, ft_key_hook, &g);
+	mlx_loop_hook(g.mlx, ft_render, &g);
 	mlx_loop(g.mlx);
 }

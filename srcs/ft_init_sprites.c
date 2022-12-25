@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 03:41:40 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/21 20:54:08 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/25 01:08:26 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	ft_init_collectibles(t_game *g)
 	g->sprites.collec.path[5] = "assets/collectibles/ball_6.xpm";
 	g->sprites.collec.path[6] = "assets/collectibles/ball_7.xpm";
 	g->sprites.collec.frame = 0;
+	g->sprites.collec.next = 1;
+	g->sprites.collec.y = 0;
 	return (0);
 }
 

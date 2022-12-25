@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 00:41:42 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/21 21:29:42 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/25 16:50:15 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,24 +78,27 @@ int	ft_new_exit(t_game *g, int row, int column)
 			&width, &height);
 	if (!img)
 		return (ft_error(g, "Failed to load exit xpm."));
-	mlx_put_image_to_window(g->mlx, g->win.ref, img, column * PX, row * PX);
+	mlx_put_image_to_window(g->mlx, g->win.ref, img, column * PX, row * PX + 12);
 	mlx_destroy_image(g->mlx, img);
 	return (0);
 }
 
 int	ft_new_collectible(t_game *g, int row, int column)
 {
-	void	*img;
-	int		frame;
-	int		width;
-	int		height;
+	void		*img;
+	int			frame;
+	int			width;
+	int			height;
+	t_collecs	collectible;
 
-	frame = g->sprites.collec.frame;
+	collectible = ft_find_collectible(g, row, column);
+	frame = collectible.type;
 	img = mlx_xpm_file_to_image(g->mlx, g->sprites.collec.path[frame],
 			&width, &height);
 	if (!img)
 		return (ft_error(g, "Failed to load collectible xpm."));
-	mlx_put_image_to_window(g->mlx, g->win.ref, img, column * PX, row * PX);
+	mlx_put_image_to_window(g->mlx, g->win.ref, img, column * PX + 4,
+		row * PX + 8 + g->sprites.collec.y);
 	mlx_destroy_image(g->mlx, img);
 	return (0);
 }

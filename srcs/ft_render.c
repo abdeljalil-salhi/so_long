@@ -6,19 +6,54 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 03:18:32 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/23 16:41:54 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/25 18:10:43 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	ft_check_components(t_game *g)
+int	ft_check_components(t_game *g, int frame)
 {
-	if (!g->collectibles)
+	if (!g->n_collectibles && !g->sprites.exit.open)
 	{
-		g->sprites.exit.closed = 0;
-		g->sprites.exit.open = 1;
-		g->sprites.exit.frame = 5;
+		if (!g->sprites.exit.opening)
+		{
+			g->sprites.exit.closed = 0;
+			g->sprites.exit.opening = 1;
+		}
+		if (frame == FPS / 2 || frame == FPS
+			|| frame == FPS / 4 || frame == FPS / 4 + FPS / 2)
+			g->sprites.exit.frame++;
+		if (g->sprites.exit.frame == 5)
+		{
+			g->sprites.exit.opening = 0;
+			g->sprites.exit.open = 1;
+		}
+	}
+	return (0);
+}
+
+int	ft_draw_upper_layer(t_game *g)
+{
+	if (g->paused && g->game_over)
+	{
+		g->tip.message = ESC_MESSAGE;
+		if (g->tip.display)
+			if (ft_new_tip(g, COLOR))
+				return (1);
+		if (ft_new_centered(g, "assets/game_over.xpm"))
+			return (1);
+		if (ft_new_centered(g, "assets/game_over_text.xpm"))
+			return (1);
+	}
+	else if (g->paused)
+	{
+		g->tip.message = P_MESSAGE;
+		if (g->tip.display)
+			if (ft_new_tip(g, COLOR))
+				return (1);
+		if (ft_new_centered(g, "assets/game_over.xpm"))
+			return (1);
 	}
 	return (0);
 }
@@ -100,26 +135,37 @@ int	ft_render(t_game *g)
 	char		*moves;
 
 	frame++;
+	if (frame == FPS / 4 || frame == FPS / 4 + FPS / 2)
+		if (ft_animate_collectibles(g))
+			ft_exit_error(g, g->exit_message);
 	if (frame == FPS / 2 || frame == FPS)
 	{
+		if (g->paused && g->tip.display)
+			g->tip.display = 0;
+		else if (g->paused && !g->tip.display)
+			g->tip.display = 1;
 		if (g->sprites.player.frame == 1)
 			g->sprites.player.frame = 0;
 		else if (g->sprites.player.frame == 0)
 			g->sprites.player.frame = 1;
 		if (ft_move_enemies(g))
-			ft_exit_error(g->exit_message);
+			ft_exit_error(g, g->exit_message);
 		if (ft_animate_enemies(g))
-			ft_exit_error(g->exit_message);
+			ft_exit_error(g, g->exit_message);
+		if (ft_animate_collectibles(g))
+			ft_exit_error(g, g->exit_message);
 	}
 	if (frame >= FPS)
 		frame = 0;
-	if (ft_check_components(g))
-		ft_exit_error(g->exit_message);
+	if (ft_check_components(g, frame))
+		ft_exit_error(g, g->exit_message);
 	mlx_clear_window(g->mlx, g->win.ref);
 	moves = ft_itoa(g->moves);
-	mlx_string_put(g->mlx, g->win.ref, 10, 5, 0x00FF0000, moves);
+	mlx_string_put(g->mlx, g->win.ref, 10, 5, COLOR, moves);
 	free(moves);
 	if (ft_draw(g))
-		ft_exit_error(g->exit_message);
+		ft_exit_error(g, g->exit_message);
+	if (ft_draw_upper_layer(g))
+		ft_exit_error(g, g->exit_message);
 	return (0);
 }

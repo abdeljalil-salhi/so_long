@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 05:46:37 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/20 19:16:42 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/25 15:35:39 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	ft_check_uniqueness(t_game *g)
 		return (ft_error(g, "Use one exit (and only one) !!"));
 	if (!occur[4])
 		return (ft_error(g, "Use at least one collectible !!"));
-	g->collectibles = occur[4];
+	g->n_collectibles = occur[4];
 	g->n_enemies = occur[5] + occur[6];
 	return (0);
 }

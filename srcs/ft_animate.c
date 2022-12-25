@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_errors.c                                   :+:      :+:    :+:   */
+/*   ft_animate.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/17 02:45:48 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/25 18:08:13 by absalhi          ###   ########.fr       */
+/*   Created: 2022/12/25 01:02:51 by absalhi           #+#    #+#             */
+/*   Updated: 2022/12/25 01:10:26 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	ft_exit_error(t_game *g, char *str)
+int	ft_animate_enemies(t_game *g)
 {
-	write(2, "Error\n", 6);
-	write(2, str, ft_strlen(str));
-	write(2, "\n", 1);
-	if (g->allocated.map)
-		ft_free_double_int(g->map.arr, (size_t) g->win.height);
-	if (g->allocated.collectibles)
-		free(g->collectibles);
-	if (g->allocated.enemies)
-		free(g->enemies);
-	exit(1);
+	g->sprites.enemy.frame++;
+	if (g->sprites.enemy.frame >= 4)
+		g->sprites.enemy.frame = 0;
+	return (0);
 }
 
-int	ft_error(t_game *g, char *str)
+int	ft_animate_collectibles(t_game *g)
 {
-	g->exit_message = str;
-	return (1);
+	if (g->sprites.collec.next)
+	{
+		if (g->sprites.collec.y == 1)
+			g->sprites.collec.next = 0;
+		g->sprites.collec.y++;
+	}
+	else
+	{
+		if (g->sprites.collec.y == 1)
+			g->sprites.collec.next = 1;
+		g->sprites.collec.y--;
+	}
+	return (0);
 }
