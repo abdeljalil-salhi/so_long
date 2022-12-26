@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 03:18:32 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/26 12:03:28 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/26 15:58:19 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	ft_check_components(t_game *g, int frame)
 		{
 			g->sprites.exit.closed = 0;
 			g->sprites.exit.opening = 1;
+			ft_play_sound_effect(g, g->sounds.opening);
 		}
 		if (frame == FPS / 2 || frame == FPS
 			|| frame == FPS / 4 || frame == FPS / 4 + FPS / 2)

@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:55:11 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/26 13:18:58 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/26 15:52:26 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,11 @@ typedef struct s_sprites
 typedef struct s_sounds
 {
 	char	*soundtrack;
+	char	*saiyan;
 	char	*collected;
 	char	*won;
 	char	*lost;
+	char	*opening;
 }	t_sounds;
 
 typedef struct s_collecs
@@ -157,6 +159,11 @@ typedef struct s_pid
 	int		effect_playing;
 }	t_pid;
 
+typedef struct s_quickfill
+{
+	int	**dc;
+}	t_quickfill;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -176,6 +183,7 @@ typedef struct s_game
 	t_tip		tip;
 	t_alloc		allocated;
 	t_pid		pid;
+	t_quickfill	quickfill;
 }	t_game;
 
 enum
@@ -264,6 +272,10 @@ int			ft_afplay(t_game *g, char *path);
 int			ft_init_sounds(t_game *g);
 void		ft_play_sound_track(t_game *g);
 void		ft_play_sound_effect(t_game *g, char *sound);
+
+int			ft_deep_copy_map(t_game *g);
+int			ft_quickfill_for_collectibles(t_game *g);
+int			ft_quickfill_for_exit(t_game *g);
 
 t_enemies	ft_find_enemy(t_game *g, int r, int c);
 t_collecs	ft_find_collectible(t_game *g, int r, int c);

@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:25:53 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/26 13:20:43 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/26 15:04:47 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	ft_free_exit(t_game *g)
 	ft_free_double_int(g->map.arr, (size_t) g->win.height);
 	free(g->collectibles);
 	free(g->enemies);
+	if (open(TMP, O_CREAT | O_WRONLY | O_TRUNC, 0644) < 0)
+		ft_exit_error(g, "Error while creating temporary file.");
 	ft_stop_sound_track(g);
 	unlink(TMP);
 	exit(0);

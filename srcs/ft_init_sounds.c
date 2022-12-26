@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 11:32:03 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/26 13:22:45 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/26 15:53:07 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ int	ft_afplay(t_game *g, char *path)
 int	ft_init_sounds(t_game *g)
 {
 	g->sounds.soundtrack = "sounds/theme.mp3";
+	g->sounds.saiyan = "sounds/saiyan.mp3";
 	g->sounds.collected = "sounds/collected.wav";
 	g->sounds.won = "sounds/won.wav";
 	g->sounds.lost = "sounds/lost.wav";
+	g->sounds.opening = "sounds/opening.mp3";
 	g->pid.effect_playing = 0;
 	return (0);
 }
