@@ -6,7 +6,7 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/17 01:18:36 by absalhi           #+#    #+#              #
-#    Updated: 2022/12/25 16:03:24 by absalhi          ###   ########.fr        #
+#    Updated: 2022/12/26 11:31:56 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ ITALIC	=	'\033[3m'
 _SRCS	=	main.c map_utils.c map_check.c so_long_utils.c so_long_errors.c		\
 			ft_functions_1.c ft_player_moves.c ft_render.c ft_init_sprites.c	\
 			ft_init_sprites_2.c ft_new_sprite.c ft_new_sprite_2.c ft_enemies.c	\
-			ft_animate.c ft_collectibles.c
+			ft_animate.c ft_collectibles.c ft_init_sounds.c
 SRCS	=	$(addprefix srcs/, $(_SRCS))
 OBJS	=	$(SRCS:.c=.o)
 

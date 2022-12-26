@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 02:18:57 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/25 18:09:51 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/26 12:26:57 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	ft_check_and_init(t_game *g, char *map)
 	g->map.file.name = map;
 	g->paused = 0;
 	g->game_over = 0;
+	g->won = 0;
 	g->moves = 0;
 	if (ft_check_extension(g))
 		return (1);
@@ -84,6 +85,8 @@ int	ft_check_and_init(t_game *g, char *map)
 	if (ft_check_map(g))
 		return (1);
 	if (ft_init_sprites(g))
+		return (1);
+	if (ft_init_sounds(g))
 		return (1);
 	if (ft_player_pos(g))
 		return (1);

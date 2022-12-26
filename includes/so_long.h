@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:55:11 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/25 18:07:18 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/26 13:18:58 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <fcntl.h>
 # include <time.h>
 # include <mlx.h>
+# include <signal.h>
 
 # define FPS 30
 # define NPX 32
@@ -25,6 +26,7 @@
 # define COLLEC_TYPES 7
 # define ESC_MESSAGE "Press [ESC] to quit..."
 # define P_MESSAGE "Press [P] to resume..."
+# define TMP "/tmp/.gameover"
 
 typedef struct s_coords
 {
@@ -109,6 +111,14 @@ typedef struct s_sprites
 	char		*border[4];
 }	t_sprites;
 
+typedef struct s_sounds
+{
+	char	*soundtrack;
+	char	*collected;
+	char	*won;
+	char	*lost;
+}	t_sounds;
+
 typedef struct s_collecs
 {
 	int			id;
@@ -140,6 +150,13 @@ typedef struct s_alloc
 	int	enemies;
 }	t_alloc;
 
+typedef struct s_pid
+{
+	pid_t	sound_track;
+	pid_t	sound_effect;
+	int		effect_playing;
+}	t_pid;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -147,15 +164,18 @@ typedef struct s_game
 	t_map		map;
 	char		*exit_message;
 	t_sprites	sprites;
+	t_sounds	sounds;
 	int			n_collectibles;
 	t_collecs	*collectibles;
 	int			n_enemies;
 	t_enemies	*enemies;
 	int			paused;
 	int			game_over;
+	int			won;
 	int			moves;
 	t_tip		tip;
 	t_alloc		allocated;
+	t_pid		pid;
 }	t_game;
 
 enum
@@ -224,6 +244,7 @@ int			ft_draw(t_game *g);
 
 void		ft_exit_error(t_game *g, char *str);
 int			ft_error(t_game *g, char *str);
+void		ft_stop_sound_track(t_game *g);
 void		ft_game_paused(t_game *g);
 void		ft_game_over(t_game *g);
 int			ft_free_exit(t_game *g);
@@ -238,6 +259,11 @@ int			ft_move_player_left(t_game *g);
 int			ft_move_player_right(t_game *g);
 int			ft_move_player_up(t_game *g);
 int			ft_move_player_down(t_game *g);
+
+int			ft_afplay(t_game *g, char *path);
+int			ft_init_sounds(t_game *g);
+void		ft_play_sound_track(t_game *g);
+void		ft_play_sound_effect(t_game *g, char *sound);
 
 t_enemies	ft_find_enemy(t_game *g, int r, int c);
 t_collecs	ft_find_collectible(t_game *g, int r, int c);

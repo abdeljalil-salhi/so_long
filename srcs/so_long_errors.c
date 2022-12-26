@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 02:45:48 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/25 18:08:13 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/26 13:21:37 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ void	ft_exit_error(t_game *g, char *str)
 		free(g->collectibles);
 	if (g->allocated.enemies)
 		free(g->enemies);
+	ft_stop_sound_track(g);
+	if (!access(TMP, R_OK))
+		unlink(TMP);
 	exit(1);
 }
 

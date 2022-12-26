@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:25:53 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/25 18:09:39 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/26 13:20:43 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ void	ft_game_over(t_game *g)
 	ft_printf("GAME OVER\n");
 	g->paused = 1;
 	g->game_over = 1;
+	if (open(TMP, O_CREAT | O_WRONLY | O_TRUNC, 0644) < 0)
+		ft_exit_error(g, "Error while creating temporary file.");
+	ft_stop_sound_track(g);
+	if (g->won)
+		ft_play_sound_effect(g, g->sounds.won);
+	else
+		ft_play_sound_effect(g, g->sounds.lost);
 }
 
 int	ft_free_exit(t_game *g)
@@ -46,6 +53,8 @@ int	ft_free_exit(t_game *g)
 	ft_free_double_int(g->map.arr, (size_t) g->win.height);
 	free(g->collectibles);
 	free(g->enemies);
+	ft_stop_sound_track(g);
+	unlink(TMP);
 	exit(0);
 }
 
@@ -61,6 +70,7 @@ int	main(int argc, char **argv)
 	g.mlx = mlx_init();
 	g.win.ref = mlx_new_window(g.mlx, g.win.width * PX + NPX,
 			g.win.height * PX + NPX + 10, "My so_long :)");
+	ft_play_sound_track(&g);
 	mlx_hook(g.win.ref, ON_DESTROY, 0L, ft_free_exit, &g);
 	mlx_key_hook(g.win.ref, ft_key_hook, &g);
 	mlx_loop_hook(g.mlx, ft_render, &g);
