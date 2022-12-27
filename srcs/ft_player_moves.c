@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 03:09:41 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/26 12:26:30 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 05:21:51 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_check_move(t_game *g, int r, int c)
 	if (g->map.arr[r][c] == 4)
 	{
 		ft_play_sound_effect(g, g->sounds.collected);
-		g->n_collectibles--;
+		g->collected++;
 	}
 	if (g->map.arr[r][c] == 3 && g->sprites.exit.open == 1)
 	{

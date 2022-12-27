@@ -6,13 +6,13 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/17 01:18:36 by absalhi           #+#    #+#              #
-#    Updated: 2022/12/26 11:31:56 by absalhi          ###   ########.fr        #
+#    Updated: 2022/12/27 11:55:56 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	so_long
 
-CFLAGS	=	-Wall -Wextra -Werror -O3
+CFLAGS	=	-Wall -Wextra -Werror -O3 -fsanitize=address
 CC		=	cc
 RM		=	rm -rf
 
@@ -21,10 +21,11 @@ GREEN	=	'\033[32m'
 GRAY	=	'\033[2;37m'
 ITALIC	=	'\033[3m'
 
-_SRCS	=	main.c map_utils.c map_check.c so_long_utils.c so_long_errors.c		\
-			ft_functions_1.c ft_player_moves.c ft_render.c ft_init_sprites.c	\
-			ft_init_sprites_2.c ft_new_sprite.c ft_new_sprite_2.c ft_enemies.c	\
-			ft_animate.c ft_collectibles.c ft_init_sounds.c
+_SRCS	=	main.c map_utils.c map_check.c so_long_utils.c so_long_errors.c				\
+			ft_functions_1.c ft_player_moves.c ft_render.c ft_init_sprites.c			\
+			ft_init_sprites_2.c ft_new_sprite.c ft_new_sprite_2.c ft_enemies.c			\
+			ft_animate.c ft_collectibles.c ft_sounds.c ft_quick_fill.c ft_functions_2.c	\
+			ft_quick_fill_2.c ft_player_attack.c ft_kill_enemy.c ft_new_sprite_3.c
 SRCS	=	$(addprefix srcs/, $(_SRCS))
 OBJS	=	$(SRCS:.c=.o)
 
@@ -50,6 +51,9 @@ fclean	:	clean
 			@$(RM) $(NAME)
 			@make fclean -C libft/
 
+play	:	$(NAME)
+			@./$(NAME) map.ber
+
 re		:	fclean all
 
-.PHONY	:	all clean fclean re
+.PHONY	:	all clean fclean re play

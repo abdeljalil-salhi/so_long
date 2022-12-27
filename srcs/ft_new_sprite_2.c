@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:33:20 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/25 16:50:22 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 11:22:34 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,23 @@ int	ft_new_tip(t_game *g, int color)
 	pos.c = NPX;
 	mlx_string_put(g->mlx, g->win.ref, pos.c, pos.r, color,
 		g->tip.message);
+	return (0);
+}
+
+int	ft_new_saiyan(t_game *g, int row, int column)
+{
+	void	*img;
+	int		frame;
+	int		width;
+	int		height;
+
+	frame = g->sprites.saiyan.frame;
+	img = mlx_xpm_file_to_image(g->mlx, g->sprites.saiyan.path[frame],
+			&width, &height);
+	if (!img)
+		return (ft_error(g, "Failed to load saiyan xpm."));
+	mlx_put_image_to_window(g->mlx, g->win.ref, img,
+		column * PX - 12, row * PX - 20);
+	mlx_destroy_image(g->mlx, img);
 	return (0);
 }

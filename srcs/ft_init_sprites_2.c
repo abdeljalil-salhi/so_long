@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:30:00 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/24 16:55:07 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 11:59:32 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,22 @@ int	ft_init_border(t_game *g)
 	g->sprites.border[1] = "assets/border/right.xpm";
 	g->sprites.border[2] = "assets/border/bottom.xpm";
 	g->sprites.border[3] = "assets/border/left.xpm";
+	return (0);
+}
+
+int	ft_init_saiyan(t_game *g)
+{
+	g->sprites.saiyan.path[0] = "assets/saiyan/saiyan_1.xpm";
+	g->sprites.saiyan.path[1] = "assets/saiyan/saiyan_2.xpm";
+	g->sprites.saiyan.path[2] = "assets/saiyan/saiyan_3.xpm";
+	g->sprites.saiyan.frame = 0;
+	return (0);
+}
+
+int	ft_init_attack(t_game *g)
+{
+	g->sprites.attack.path[0] = "assets/attack/attack_1.xpm";
+	g->sprites.attack.path[1] = "assets/attack/attack_2.xpm";
+	g->sprites.attack.path[2] = "assets/attack/attack_3.xpm";
 	return (0);
 }

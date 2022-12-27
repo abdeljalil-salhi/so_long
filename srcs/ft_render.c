@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 03:18:32 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/26 15:58:19 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 12:07:27 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_check_components(t_game *g, int frame)
 {
-	if (!g->n_collectibles && !g->sprites.exit.open)
+	if (g->collected == g->n_collectibles && !g->sprites.exit.open)
 	{
 		if (!g->sprites.exit.opening)
 		{
@@ -30,6 +30,20 @@ int	ft_check_components(t_game *g, int frame)
 			g->sprites.exit.opening = 0;
 			g->sprites.exit.open = 1;
 		}
+	}
+	if (g->collected && !(g->collected % 3)
+		&& !g->sprites.player.saiyan && g->collected != g->last_saiyan)
+	{
+		g->last_saiyan = g->collected;
+		g->sprites.player.saiyan = 1;
+	}
+	if (g->sprites.player.saiyan)
+	{
+		if (frame == FPS / 2 || frame == FPS
+			|| frame == FPS / 4 || frame == FPS / 4 + FPS / 2)
+			g->sprites.saiyan.frame++;
+		if (g->sprites.saiyan.frame >= 3)
+			g->sprites.saiyan.frame = 0;
 	}
 	return (0);
 }
@@ -82,8 +96,8 @@ int	ft_draw_borders(t_game *g)
 			if (j == g->win.width + 1)
 				if (ft_new_border(g, i, j, g->sprites.border[1]))
 					return (1);
-			if (((i == 0 || i == g->win.height + 1)
-					&& (j == 0 || j == g->win.width + 1)))
+			if ((i == 0 || i == g->win.height + 1)
+				&& (j == 0 || j == g->win.width + 1))
 				if (ft_new_border(g, i, j, g->sprites.wall.path[0]))
 					return (1);
 		}
@@ -109,6 +123,9 @@ int	ft_draw(t_game *g)
 					return (1);
 			if (g->map.arr[i][j] == 1 || g->map.arr[i][j] == 3)
 				if (ft_new_wall(g, i, j))
+					return (1);
+			if (g->map.arr[i][j] == 2 && g->sprites.player.saiyan)
+				if (ft_new_saiyan(g, i, j))
 					return (1);
 			if (g->map.arr[i][j] == 2)
 				if (ft_new_player(g, i, j))

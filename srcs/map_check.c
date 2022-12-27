@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 05:46:37 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/25 15:35:39 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 03:35:24 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_check_borders(t_game *g)
 	return (0);
 }
 
-static int	ft_nb_count_occurences(int *arr, int n, size_t size)
+int	ft_nb_count_occurences(int *arr, int n, size_t size)
 {
 	int	i;
 	int	r;

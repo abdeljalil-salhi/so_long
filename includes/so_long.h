@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:55:11 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/26 15:52:26 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 11:59:06 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define PX 32 + 32
 # define COLOR 0x00FF0000
 # define COLLEC_TYPES 7
+# define QUICKFILLED 9
 # define ESC_MESSAGE "Press [ESC] to quit..."
 # define P_MESSAGE "Press [P] to resume..."
 # define TMP "/tmp/.gameover"
@@ -59,11 +60,17 @@ typedef struct s_player
 	t_coords	pos;
 	int			frame;
 	int			standing;
-	int			energy;
+	int			saiyan;
 	int			dying;
 	int			dead;
 	int			deg;
 }	t_player;
+
+typedef struct s_saiyan
+{
+	char	*path[3];
+	int		frame;
+}	t_saiyan;
 
 typedef struct s_exit
 {
@@ -100,14 +107,23 @@ typedef struct s_enemy
 	int		frame;
 }	t_enemy;
 
+typedef struct s_attack
+{
+	char	*path[3];
+	int		attacking;
+	int		deg;
+}	t_attack;
+
 typedef struct s_sprites
 {
 	t_player	player;
+	t_saiyan	saiyan;
 	t_exit		exit;
 	t_collec	collec;
 	t_wall		wall;
 	t_ground	ground;
 	t_enemy		enemy;
+	t_attack	attack;
 	char		*border[4];
 }	t_sprites;
 
@@ -148,8 +164,10 @@ typedef struct s_tip
 typedef struct s_alloc
 {
 	int	map;
+	int	quickfill;
 	int	collectibles;
 	int	enemies;
+	int	sound_track;
 }	t_alloc;
 
 typedef struct s_pid
@@ -162,6 +180,7 @@ typedef struct s_pid
 typedef struct s_quickfill
 {
 	int	**dc;
+	int	depth;
 }	t_quickfill;
 
 typedef struct s_game
@@ -174,12 +193,14 @@ typedef struct s_game
 	t_sounds	sounds;
 	int			n_collectibles;
 	t_collecs	*collectibles;
+	int			collected;
 	int			n_enemies;
 	t_enemies	*enemies;
 	int			paused;
 	int			game_over;
 	int			won;
 	int			moves;
+	int			last_saiyan;
 	t_tip		tip;
 	t_alloc		allocated;
 	t_pid		pid;
@@ -204,6 +225,7 @@ enum
 	KEY_S = 1,
 	KEY_W = 13,
 	KEY_P = 35,
+	KEY_SPACE = 49,
 	ESC = 53,
 	ARROW_LEFT = 123,
 	ARROW_RIGHT = 124,
@@ -235,6 +257,7 @@ int			ft_init_wall(t_game *g);
 int			ft_init_ground(t_game *g);
 int			ft_init_enemy(t_game *g);
 int			ft_init_border(t_game *g);
+int			ft_init_saiyan(t_game *g);
 int			ft_new_wall(t_game *g, int row, int column);
 int			ft_new_ground(t_game *g, int row, int column);
 int			ft_new_player(t_game *g, int row, int column);
@@ -244,6 +267,8 @@ int			ft_new_enemy(t_game *g, int row, int column, int type);
 int			ft_new_border(t_game *g, int row, int column, char *path);
 int			ft_new_centered(t_game *g, char *path);
 int			ft_new_tip(t_game *g, int color);
+int			ft_new_saiyan(t_game *g, int row, int column);
+int			ft_new_attack(t_game *g, int row, int column, int frame);
 int			ft_check_components(t_game *g, int frame);
 int			ft_draw_upper_layer(t_game *g);
 int			ft_render(t_game *g);
@@ -258,24 +283,33 @@ void		ft_game_over(t_game *g);
 int			ft_free_exit(t_game *g);
 
 int			ft_count_occurences(char *str, char c);
+int			ft_nb_count_occurences(int *arr, int n, size_t size);
 int			ft_free_tab(void **tab);
 int			ft_free_double_int(int **tab, size_t size);
 int			ft_free(void *ptr);
 int			ft_close(int fd);
+t_coords	ft_coords(int r, int c);
 
 int			ft_move_player_left(t_game *g);
 int			ft_move_player_right(t_game *g);
 int			ft_move_player_up(t_game *g);
 int			ft_move_player_down(t_game *g);
+int			ft_attack_player(t_game *g);
+int			ft_kill_enemy_left(t_game *g);
+int			ft_kill_enemy_right(t_game *g);
+int			ft_kill_enemy_up(t_game *g);
+int			ft_kill_enemy_down(t_game *g);
 
-int			ft_afplay(t_game *g, char *path);
+int			ft_afplay(t_game *g, char *path, int volume);
 int			ft_init_sounds(t_game *g);
 void		ft_play_sound_track(t_game *g);
 void		ft_play_sound_effect(t_game *g, char *sound);
 
 int			ft_deep_copy_map(t_game *g);
-int			ft_quickfill_for_collectibles(t_game *g);
-int			ft_quickfill_for_exit(t_game *g);
+int			ft_quickfill(t_game *g, t_coords p, int depth);
+int			ft_check_collectibles(t_game *g);
+int			ft_check_exit(t_game *g);
+int			ft_check_enemies_path(t_game *g);
 
 t_enemies	ft_find_enemy(t_game *g, int r, int c);
 t_collecs	ft_find_collectible(t_game *g, int r, int c);

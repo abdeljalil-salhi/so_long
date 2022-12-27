@@ -6,19 +6,21 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 11:32:03 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/26 15:53:07 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 06:16:14 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	ft_afplay(t_game *g, char *path)
+int	ft_afplay(t_game *g, char *path, int volume)
 {
 	char	*cmd;
+	char	**afplays;
 
-	cmd = ft_strjoin("afplay ", path);
+	afplays = (char *[]){"afplay -v 0.3 ", "afplay -v 0.7 ", "afplay -v 1 "};
+	cmd = ft_strjoin(afplays[volume], path);
 	if (!cmd)
-		return(ft_error(g, "ft_strjoin failed in ft_afplay."));
+		return (ft_error(g, "ft_strjoin failed in ft_afplay."));
 	system(cmd);
 	free(cmd);
 	return (0);
@@ -44,7 +46,7 @@ void	ft_play_sound_track(t_game *g)
 	if (!g->pid.sound_track)
 	{
 		while (access(TMP, R_OK) == -1)
-			if (ft_afplay(g, g->sounds.soundtrack))
+			if (ft_afplay(g, g->sounds.soundtrack, 0))
 				ft_exit_error(g, g->exit_message);
 		exit(0);
 	}
@@ -60,7 +62,7 @@ void	ft_play_sound_effect(t_game *g, char *sound)
 	if (!g->pid.sound_effect)
 	{
 		g->pid.effect_playing = 1;
-		if (ft_afplay(g, sound))
+		if (ft_afplay(g, sound, 1))
 			ft_exit_error(g, g->exit_message);
 		g->pid.effect_playing = 0;
 		exit(0);
@@ -69,6 +71,8 @@ void	ft_play_sound_effect(t_game *g, char *sound)
 
 void	ft_stop_sound_track(t_game *g)
 {
+	if (!g->allocated.sound_track)
+		return ;
 	system("killall afplay");
 	kill(g->pid.sound_track, SIGKILL);
 }

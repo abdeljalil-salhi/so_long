@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 03:41:40 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/25 01:08:26 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 10:29:38 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_init_player(t_game *g)
 	g->sprites.player.path[4][1] = "assets/player/dead.xpm";
 	g->sprites.player.frame = 0;
 	g->sprites.player.standing = 1;
-	g->sprites.player.energy = 0;
+	g->sprites.player.saiyan = 0;
 	g->sprites.player.dying = 0;
 	g->sprites.player.dead = 0;
 	g->sprites.player.deg = 2;

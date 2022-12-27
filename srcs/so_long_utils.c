@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 02:18:57 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/26 12:26:57 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 11:47:59 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static int	ft_init_sprites(t_game *g)
 		return (1);
 	if (ft_init_border(g))
 		return (1);
+	if (ft_init_saiyan(g))
+		return (1);
 	return (0);
 }
 
@@ -69,13 +71,36 @@ int	ft_player_pos(t_game *g)
 	return (0);
 }
 
-int	ft_check_and_init(t_game *g, char *map)
+int	ft_init_quickfill(t_game *g)
+{
+	if (ft_deep_copy_map(g))
+		return (1);
+	g->quickfill.depth = 1;
+	if (ft_quickfill(g, g->sprites.player.pos, g->quickfill.depth))
+		return (1);
+	if (ft_check_collectibles(g))
+		return (1);
+	if (ft_check_exit(g))
+		return (1);
+	if (ft_check_enemies_path(g))
+		return (1);
+	return (0);
+}
+
+static void	ft_init_game_struct(t_game *g, char *map)
 {
 	g->map.file.name = map;
 	g->paused = 0;
 	g->game_over = 0;
 	g->won = 0;
 	g->moves = 0;
+	g->last_saiyan = 0;
+	g->collected = 0;
+}
+
+int	ft_check_and_init(t_game *g, char *map)
+{
+	ft_init_game_struct(g, map);
 	if (ft_check_extension(g))
 		return (1);
 	if (ft_read_file(g))
@@ -89,6 +114,8 @@ int	ft_check_and_init(t_game *g, char *map)
 	if (ft_init_sounds(g))
 		return (1);
 	if (ft_player_pos(g))
+		return (1);
+	if (ft_init_quickfill(g))
 		return (1);
 	if (ft_launch_collectibles(g))
 		return (1);
