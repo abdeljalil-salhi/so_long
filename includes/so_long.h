@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:55:11 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/28 17:20:53 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 21:42:33 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 # include <signal.h>
 
 # define FPS 30
-# define NPX 32
-# define PX 32 + 32
+# define PX 32
 # define COLOR 0x00FF0000
 # define COLLEC_TYPES 7
 # define QUICKFILLED 9
@@ -194,6 +193,7 @@ typedef struct s_game
 	int			n_collectibles;
 	t_collecs	*collectibles;
 	int			collected;
+	int			energy;
 	int			n_enemies;
 	t_enemies	*enemies;
 	int			paused;
@@ -248,6 +248,10 @@ int			ft_launch_enemies(t_game *g);
 int			ft_fill_collectible(t_game *g, t_coords p, int *id);
 int			ft_launch_collectibles(t_game *g);
 int			ft_move_enemies(t_game *g);
+void		ft_move_enemy_left(t_game *g, t_coords p, int i);
+void		ft_move_enemy_right(t_game *g, t_coords p, int i);
+void		ft_move_enemy_up(t_game *g, t_coords p, int i);
+void		ft_move_enemy_down(t_game *g, t_coords p, int i);
 int			ft_animate_enemies(t_game *g);
 int			ft_animate_collectibles(t_game *g);
 
@@ -274,11 +278,20 @@ int			ft_new_attack(t_game *g, int row, int column, int frame);
 int			ft_check_components(t_game *g, int frame);
 int			ft_draw_upper_layer(t_game *g);
 int			ft_render(t_game *g);
+void		ft_exit_render(t_game *g, int frame);
+void		ft_saiyan_render(t_game *g);
+void		ft_stop_attack_render(t_game *g);
+int			ft_game_over_render(t_game *g);
+int			ft_attack_render(t_game *g);
+int			ft_draw_render(t_game *g, int i, int j);
+int			ft_borders_render(t_game *g, int i, int j);
+void		ft_render_manager(t_game *g);
 int			ft_draw_borders(t_game *g);
 int			ft_draw(t_game *g);
 
 void		ft_exit_error(t_game *g, char *str);
 int			ft_error(t_game *g, char *str);
+int			ft_map_error(t_game *g, int size, char *str);
 void		ft_stop_sound_track(t_game *g);
 void		ft_game_paused(t_game *g);
 void		ft_game_over(t_game *g);
@@ -314,6 +327,10 @@ void		ft_play_sound_effect(t_game *g, char *sound);
 
 int			ft_deep_copy_map(t_game *g);
 int			ft_quickfill(t_game *g, t_coords p, int depth);
+int			ft_quickfill_condition_left(t_game *g, t_coords p);
+int			ft_quickfill_condition_right(t_game *g, t_coords p);
+int			ft_quickfill_condition_up(t_game *g, t_coords p);
+int			ft_quickfill_condition_down(t_game *g, t_coords p);
 int			ft_check_collectibles(t_game *g);
 int			ft_check_exit(t_game *g);
 int			ft_check_enemies_path(t_game *g);

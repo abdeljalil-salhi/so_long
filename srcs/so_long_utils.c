@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 02:18:57 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 16:32:36 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 17:51:28 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ static void	ft_init_game_struct(t_game *g, char *map)
 	g->moves = 0;
 	g->last_saiyan = 0;
 	g->collected = 0;
+	g->energy = 0;
 }
 
 int	ft_check_and_init(t_game *g, char *map)

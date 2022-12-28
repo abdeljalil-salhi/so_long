@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 05:46:37 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 03:35:24 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 21:45:50 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,6 @@ int	ft_check_borders(t_game *g)
 			return (ft_error(g, "Invalid right border, ERROR"));
 	}
 	return (0);
-}
-
-int	ft_nb_count_occurences(int *arr, int n, size_t size)
-{
-	int	i;
-	int	r;
-
-	r = 0;
-	i = -1;
-	while ((size_t)++i < size)
-		if (arr[i] == n)
-			r++;
-	return (r);
 }
 
 static void	ft_display_infos(t_game *g, int occur[OCCURENCES])

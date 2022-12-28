@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_collectibles.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/25 18:04:56 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 19:07:27 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+struct s_lc
+{
+	int			i;
+	int			j;
+	t_coords	p;
+};
 
 static int	ft_check_if_type_already_exists(t_game *g, int type)
 {
@@ -48,28 +55,27 @@ int	ft_fill_collectible(t_game *g, t_coords p, int *id)
 
 int	ft_launch_collectibles(t_game *g)
 {
-	int			i;
-	int			j;
+	struct s_lc	s;
 	int			id;
-	t_coords	p;
 
 	id = 0;
 	srand((unsigned int) time(NULL));
-	g->collectibles = (t_collecs *) ft_calloc(g->n_collectibles, sizeof(t_collecs));
+	g->collectibles = (t_collecs *) ft_calloc(g->n_collectibles,
+			sizeof(t_collecs));
 	if (!g->collectibles)
 		return (ft_error(g, "ft_collectibles.c: ft_calloc failed."));
 	g->allocated.collectibles = 1;
-	i = -1;
-	while (++i < g->win.height)
+	s.i = -1;
+	while (++s.i < g->win.height)
 	{
-		j = -1;
-		while (++j < g->win.width)
+		s.j = -1;
+		while (++s.j < g->win.width)
 		{
-			if (g->map.arr[i][j] == 4)
+			if (g->map.arr[s.i][s.j] == 4)
 			{
-				p.r = i;
-				p.c = j;
-				ft_fill_collectible(g, p, &id);
+				s.p.r = s.i;
+				s.p.c = s.j;
+				ft_fill_collectible(g, s.p, &id);
 			}
 		}
 	}

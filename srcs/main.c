@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:25:53 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/28 17:20:36 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 19:26:26 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ int	main(int argc, char **argv)
 	if (ft_check_and_init(&g, argv[1]))
 		ft_exit_error(&g, g.exit_message);
 	g.mlx = mlx_init();
-	g.win.ref = mlx_new_window(g.mlx, g.win.width * PX + NPX,
-			g.win.height * PX + NPX + 10, "My so_long :)");
+	g.win.ref = mlx_new_window(g.mlx, g.win.width * PX + PX * 2,
+			g.win.height * PX + PX * 2 + 10, "My so_long :)");
 	g.allocated.sound_track = 1;
 	ft_play_sound_track(&g, 0);
 	mlx_hook(g.win.ref, ON_DESTROY, 0L, ft_free_exit, &g);

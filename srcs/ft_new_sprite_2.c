@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_new_sprite_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:33:20 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 11:22:34 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 19:32:51 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int	ft_new_enemy(t_game *g, int row, int column, int type)
 		return (ft_error(g, "Failed to load enemy xpm."));
 	if (type == 0)
 		mlx_put_image_to_window(g->mlx, g->win.ref, img,
-			column * PX, row * PX - 32);
+			column * PX + PX, row * PX + PX - 32);
 	else if (type == 1)
 		mlx_put_image_to_window(g->mlx, g->win.ref, img,
-			column * PX - 11, row * PX - 18);
+			column * PX + PX - 11, row * PX + PX - 18);
 	mlx_destroy_image(g->mlx, img);
 	return (0);
 }
@@ -53,7 +53,7 @@ int	ft_new_border(t_game *g, int row, int column, char *path)
 	if (!img)
 		return (ft_error(g, "Failed to load border xpm."));
 	mlx_put_image_to_window(g->mlx, g->win.ref, img,
-		column * NPX, row * NPX);
+		column * PX, row * PX);
 	mlx_destroy_image(g->mlx, img);
 	return (0);
 }
@@ -68,8 +68,8 @@ int	ft_new_centered(t_game *g, char *path)
 	if (!img)
 		return (ft_error(g, "Failed to load centered xpm."));
 	mlx_put_image_to_window(g->mlx, g->win.ref, img,
-		(g->win.width * PX + NPX) / 2 - width / 2,
-		(g->win.height * PX + NPX) / 2 - height / 2);
+		(g->win.width * PX + PX * 2) / 2 - width / 2,
+		(g->win.height * PX + PX * 2) / 2 - height / 2);
 	mlx_destroy_image(g->mlx, img);
 	return (0);
 }
@@ -78,8 +78,8 @@ int	ft_new_tip(t_game *g, int color)
 {
 	t_coords	pos;
 
-	pos.r = g->win.height * PX + NPX / 2;
-	pos.c = NPX;
+	pos.r = g->win.height * PX + PX + PX / 2;
+	pos.c = PX;
 	mlx_string_put(g->mlx, g->win.ref, pos.c, pos.r, color,
 		g->tip.message);
 	return (0);
@@ -98,7 +98,7 @@ int	ft_new_saiyan(t_game *g, int row, int column)
 	if (!img)
 		return (ft_error(g, "Failed to load saiyan xpm."));
 	mlx_put_image_to_window(g->mlx, g->win.ref, img,
-		column * PX - 12, row * PX - 20);
+		column * PX + PX - 12, row * PX + PX - 20);
 	mlx_destroy_image(g->mlx, img);
 	return (0);
 }

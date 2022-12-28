@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_errors.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 02:45:48 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 02:08:59 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 21:42:22 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,10 @@ int	ft_error(t_game *g, char *str)
 {
 	g->exit_message = str;
 	return (1);
+}
+
+int	ft_map_error(t_game *g, int size, char *str)
+{
+	return (ft_free_double_int(g->map.arr, (size_t) size)
+		+ ft_error(g, str));
 }

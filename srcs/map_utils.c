@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 02:18:09 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 02:12:42 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 21:42:11 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,10 @@ int	ft_init_map(t_game *g)
 	{
 		g->map.arr[s.i] = (int *) ft_calloc(g->win.width, sizeof(int));
 		if (!g->map.arr[s.i])
-			return (ft_free(g->map.arr)
-				+ ft_free_double_int(g->map.arr, (size_t) s.i)
-				+ ft_error(g, "map_utils.c: (int *) ft_calloc failed."));
+			return (ft_map_error(g, s.i, "ft_calloc failed."));
 		s.row = get_next_line(g->map.file.fd);
 		if (!s.row)
-			return (ft_free_tab((void **)g->map.arr)
-				+ ft_error(g, "map_utils.c: get_next_line failed."));
+			return (ft_map_error(g, s.i, "get_next_line failed."));
 		s.j = -1;
 		while (++s.j < g->win.width)
 			g->map.arr[s.i][s.j] = ft_set_ceil_type(g, s.row[s.j]);

@@ -6,7 +6,7 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/17 01:18:36 by absalhi           #+#    #+#              #
-#    Updated: 2022/12/28 17:21:15 by absalhi          ###   ########.fr        #
+#    Updated: 2022/12/28 20:52:17 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ _SRCS	=	main.c map_utils.c map_check.c so_long_utils.c so_long_errors.c				\
 			ft_init_sprites_2.c ft_new_sprite.c ft_new_sprite_2.c ft_enemies.c			\
 			ft_animate.c ft_collectibles.c ft_sounds.c ft_quick_fill.c ft_functions_2.c	\
 			ft_quick_fill_2.c ft_player_attack.c ft_kill_enemy.c ft_new_sprite_3.c		\
-			ft_draw_attack.c
+			ft_draw_attack.c ft_enemy_moves.c ft_render_norm.c ft_render_norm_2.c
 SRCS	=	$(addprefix srcs/, $(_SRCS))
 OBJS	=	$(SRCS:.c=.o)
 

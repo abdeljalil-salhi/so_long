@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_enemies.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 18:51:23 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 16:34:50 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 19:21:25 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,64 +73,16 @@ int	ft_move_enemies(t_game *g)
 		if (g->enemies[i].type == 0 && !g->enemies[i].dead)
 		{
 			if (g->enemies[i].next)
-			{
-				g->enemies[i].deg = 1;
-				if (p.c + 1 <= g->win.width && g->map.arr[p.r][p.c + 1] != 0)
-					g->enemies[i].next = 0;
-				else if (p.c + 1 < g->win.width && g->map.arr[p.r][p.c + 1] == 0)
-				{
-					g->map.arr[p.r][p.c] = 0;
-					g->map.arr[p.r][p.c + 1] = 5;
-					g->enemies[i].pos.c++;
-				}
-				if (p.c + 1 == g->sprites.player.pos.c && p.r == g->sprites.player.pos.r)
-					ft_game_over(g);
-			}
+				ft_move_enemy_right(g, p, i);
 			else
-			{
-				g->enemies[i].deg = 3;
-				if (p.c - 1 >= 0 && g->map.arr[p.r][p.c - 1] != 0)
-					g->enemies[i].next = 1;
-				else if (p.c - 1 > 0 && g->map.arr[p.r][p.c - 1] == 0)
-				{
-					g->map.arr[p.r][p.c] = 0;
-					g->map.arr[p.r][p.c - 1] = 5;
-					g->enemies[i].pos.c--;
-				}
-				if (p.c - 1 == g->sprites.player.pos.c && p.r == g->sprites.player.pos.r)
-					ft_game_over(g);
-			}
+				ft_move_enemy_left(g, p, i);
 		}
 		if (g->enemies[i].type == 1 && !g->enemies[i].dead)
 		{
 			if (g->enemies[i].next)
-			{
-				g->enemies[i].deg = 0;
-				if (p.r + 1 <= g->win.height && g->map.arr[p.r + 1][p.c] != 0)
-					g->enemies[i].next = 0;
-				else if (p.r + 1 < g->win.height && g->map.arr[p.r + 1][p.c] == 0)
-				{
-					g->map.arr[p.r][p.c] = 0;
-					g->map.arr[p.r + 1][p.c] = 6;
-					g->enemies[i].pos.r++;
-				}
-				if (p.r + 1 == g->sprites.player.pos.r && p.c == g->sprites.player.pos.c)
-					ft_game_over(g);
-			}
+				ft_move_enemy_up(g, p, i);
 			else
-			{
-				g->enemies[i].deg = 2;
-				if (p.r - 1 >= 0 && g->map.arr[p.r - 1][p.c] != 0)
-					g->enemies[i].next = 1;
-				else if (p.r - 1 > 0 && g->map.arr[p.r - 1][p.c] == 0)
-				{
-					g->map.arr[p.r][p.c] = 0;
-					g->map.arr[p.r - 1][p.c] = 6;
-					g->enemies[i].pos.r--;
-				}
-				if (p.r - 1 == g->sprites.player.pos.r && p.c == g->sprites.player.pos.c)
-					ft_game_over(g);
-			}
+				ft_move_enemy_down(g, p, i);
 		}
 	}
 	return (0);
