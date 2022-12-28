@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 18:51:23 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 11:38:53 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 16:34:50 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_move_enemies(t_game *g)
 	int			i;
 
 	i = -1;
-	while (++i < g->n_enemies && !g->paused)
+	while (++i < g->n_enemies && !g->paused && !g->freezed)
 	{
 		p.r = g->enemies[i].pos.r;
 		p.c = g->enemies[i].pos.c;

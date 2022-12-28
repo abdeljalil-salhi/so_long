@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:30:00 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 11:59:32 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 16:48:59 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,19 @@ int	ft_init_saiyan(t_game *g)
 
 int	ft_init_attack(t_game *g)
 {
-	g->sprites.attack.path[0] = "assets/attack/attack_1.xpm";
-	g->sprites.attack.path[1] = "assets/attack/attack_2.xpm";
-	g->sprites.attack.path[2] = "assets/attack/attack_3.xpm";
+	g->sprites.attack.path[0][0] = "assets/attack/attack_0_1.xpm";
+	g->sprites.attack.path[0][1] = "assets/attack/attack_0_2.xpm";
+	g->sprites.attack.path[0][2] = "assets/attack/attack_0_3.xpm";
+	g->sprites.attack.path[1][0] = "assets/attack/attack_1_1.xpm";
+	g->sprites.attack.path[1][1] = "assets/attack/attack_1_2.xpm";
+	g->sprites.attack.path[1][2] = "assets/attack/attack_1_3.xpm";
+	g->sprites.attack.path[2][0] = "assets/attack/attack_2_1.xpm";
+	g->sprites.attack.path[2][1] = "assets/attack/attack_2_2.xpm";
+	g->sprites.attack.path[2][2] = "assets/attack/attack_2_3.xpm";
+	g->sprites.attack.path[3][0] = "assets/attack/attack_3_1.xpm";
+	g->sprites.attack.path[3][1] = "assets/attack/attack_3_2.xpm";
+	g->sprites.attack.path[3][2] = "assets/attack/attack_3_3.xpm";
+	g->sprites.attack.attacking = 0;
+	g->sprites.attack.duration = 0;
 	return (0);
 }

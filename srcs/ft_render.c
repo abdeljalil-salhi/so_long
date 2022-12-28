@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 03:18:32 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 12:07:27 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 18:04:09 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,18 @@ int	ft_check_components(t_game *g, int frame)
 		if (g->sprites.saiyan.frame >= 3)
 			g->sprites.saiyan.frame = 0;
 	}
+	if (g->sprites.attack.attacking)
+	{
+		g->sprites.attack.duration++;
+		if (g->sprites.attack.duration == FPS)
+		{
+			g->sprites.attack.attacking = 0;
+			g->sprites.attack.duration = 0;
+			g->sprites.player.saiyan = 0;
+			g->sprites.player.deg -= 5;
+			g->freezed = 0;
+		}
+	}
 	return (0);
 }
 
@@ -69,6 +81,22 @@ int	ft_draw_upper_layer(t_game *g)
 				return (1);
 		if (ft_new_centered(g, "assets/game_over.xpm"))
 			return (1);
+	}
+	if (g->sprites.attack.attacking)
+	{
+		if (g->sprites.attack.duration <= 5)
+		{
+			if (g->sprites.player.deg < 5)
+				g->sprites.player.deg += 5;
+			g->sprites.player.frame = 0;
+		}
+		else if (g->sprites.attack.duration > 5)
+			g->sprites.player.frame = 1;
+		if (g->sprites.attack.duration > 6)
+			if (ft_draw_attack(g))
+				return (1);
+		if (g->sprites.attack.duration == 7)
+			ft_attack_player(g);
 	}
 	return (0);
 }
@@ -153,6 +181,8 @@ int	ft_render(t_game *g)
 	char		*moves;
 
 	frame++;
+	if (frame > FPS)
+		frame = 0;
 	if (frame == FPS / 4 || frame == FPS / 4 + FPS / 2)
 		if (ft_animate_collectibles(g))
 			ft_exit_error(g, g->exit_message);
@@ -162,9 +192,9 @@ int	ft_render(t_game *g)
 			g->tip.display = 0;
 		else if (g->paused && !g->tip.display)
 			g->tip.display = 1;
-		if (g->sprites.player.frame == 1)
+		if (g->sprites.player.frame == 1 && !g->freezed)
 			g->sprites.player.frame = 0;
-		else if (g->sprites.player.frame == 0)
+		else if (g->sprites.player.frame == 0 && !g->freezed)
 			g->sprites.player.frame = 1;
 		if (ft_move_enemies(g))
 			ft_exit_error(g, g->exit_message);
@@ -173,8 +203,6 @@ int	ft_render(t_game *g)
 		if (ft_animate_collectibles(g))
 			ft_exit_error(g, g->exit_message);
 	}
-	if (frame >= FPS)
-		frame = 0;
 	if (ft_check_components(g, frame))
 		ft_exit_error(g, g->exit_message);
 	mlx_clear_window(g->mlx, g->win.ref);

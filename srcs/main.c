@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:25:53 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 11:44:07 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 17:53:11 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ static int	ft_key_hook(int keycode, t_game *g)
 void	ft_game_paused(t_game *g)
 {
 	g->paused = !g->paused;
+	g->freezed = !g->freezed;
 }
 
 void	ft_game_over(t_game *g)
 {
 	ft_printf("GAME OVER\n");
 	g->paused = 1;
+	g->freezed = 1;
 	g->game_over = 1;
 	if (open(TMP, O_CREAT | O_WRONLY | O_TRUNC, 0644) < 0)
 		ft_exit_error(g, "Error while creating temporary file.");

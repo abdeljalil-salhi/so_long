@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 02:18:57 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 11:47:59 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 16:32:36 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static int	ft_init_sprites(t_game *g)
 	if (ft_init_border(g))
 		return (1);
 	if (ft_init_saiyan(g))
+		return (1);
+	if (ft_init_attack(g))
 		return (1);
 	return (0);
 }
@@ -91,6 +93,7 @@ static void	ft_init_game_struct(t_game *g, char *map)
 {
 	g->map.file.name = map;
 	g->paused = 0;
+	g->freezed = 0;
 	g->game_over = 0;
 	g->won = 0;
 	g->moves = 0;

@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 03:41:40 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 10:29:38 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 17:36:22 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ int	ft_init_player(t_game *g)
 	g->sprites.player.path[3][1] = "assets/player/left_2.xpm";
 	g->sprites.player.path[4][0] = "assets/player/dying.xpm";
 	g->sprites.player.path[4][1] = "assets/player/dead.xpm";
+	g->sprites.player.path[5][0] = "assets/player/attack_0_1.xpm";
+	g->sprites.player.path[5][1] = "assets/player/attack_0_2.xpm";
+	g->sprites.player.path[6][0] = "assets/player/attack_1_1.xpm";
+	g->sprites.player.path[6][1] = "assets/player/attack_1_2.xpm";
+	g->sprites.player.path[7][0] = "assets/player/attack_2_1.xpm";
+	g->sprites.player.path[7][1] = "assets/player/attack_2_2.xpm";
+	g->sprites.player.path[8][0] = "assets/player/attack_3_1.xpm";
+	g->sprites.player.path[8][1] = "assets/player/attack_3_2.xpm";
 	g->sprites.player.frame = 0;
 	g->sprites.player.standing = 1;
 	g->sprites.player.saiyan = 0;

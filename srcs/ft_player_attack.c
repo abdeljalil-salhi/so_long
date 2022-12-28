@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 10:57:15 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 12:08:28 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 18:06:31 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,43 @@
 
 int	ft_attack_player(t_game *g)
 {
-	t_coords	pos;
+	g->freezed = 1;
+	g->sprites.attack.attacking = 1;
+	if (g->sprites.attack.duration == 7)
+	{
+		if (g->sprites.player.deg == 5)
+			ft_kill_enemy_up(g);
+		else if (g->sprites.player.deg == 6)
+			ft_kill_enemy_right(g);
+		else if (g->sprites.player.deg == 7)
+			ft_kill_enemy_down(g);
+		else if (g->sprites.player.deg == 8)
+			ft_kill_enemy_left(g);
+	}
+	return (0);
+}
 
-	g->paused = 1;
-	pos = g->sprites.player.pos;
-	if (g->sprites.player.deg == 0)
+int	ft_draw_attack(t_game *g)
+{
+	if (g->sprites.player.deg == 5)
 	{
-		ft_new_attack(g, pos.r - 1, pos.c, 0);
-		ft_new_attack(g, pos.r - 2, pos.c, 1);
-		ft_new_attack(g, pos.r - 3, pos.c, 2);
-		ft_kill_enemy_up(g);
+		if (ft_draw_attack_up(g))
+			return (1);
 	}
-	else if (g->sprites.player.deg == 1)
+	else if (g->sprites.player.deg == 6)
 	{
-		ft_kill_enemy_right(g);
+		if (ft_draw_attack_right(g))
+			return (1);
 	}
-	else if (g->sprites.player.deg == 2)
+	else if (g->sprites.player.deg == 7)
 	{
-		ft_kill_enemy_down(g);
+		if (ft_draw_attack_down(g))
+			return (1);
 	}
-	else if (g->sprites.player.deg == 3)
+	else if (g->sprites.player.deg == 8)
 	{
-		ft_kill_enemy_left(g);
+		if (ft_draw_attack_left(g))
+			return (1);
 	}
-	g->paused = 0;
-	g->sprites.player.saiyan = 0;
 	return (0);
 }

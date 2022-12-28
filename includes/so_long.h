@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:55:11 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 11:59:06 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 17:34:19 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	char		*path[5][2];
+	char		*path[9][2];
 	t_coords	pos;
 	int			frame;
 	int			standing;
@@ -109,9 +109,9 @@ typedef struct s_enemy
 
 typedef struct s_attack
 {
-	char	*path[3];
+	char	*path[4][3];
 	int		attacking;
-	int		deg;
+	int		duration;
 }	t_attack;
 
 typedef struct s_sprites
@@ -197,6 +197,7 @@ typedef struct s_game
 	int			n_enemies;
 	t_enemies	*enemies;
 	int			paused;
+	int			freezed;
 	int			game_over;
 	int			won;
 	int			moves;
@@ -258,6 +259,7 @@ int			ft_init_ground(t_game *g);
 int			ft_init_enemy(t_game *g);
 int			ft_init_border(t_game *g);
 int			ft_init_saiyan(t_game *g);
+int			ft_init_attack(t_game *g);
 int			ft_new_wall(t_game *g, int row, int column);
 int			ft_new_ground(t_game *g, int row, int column);
 int			ft_new_player(t_game *g, int row, int column);
@@ -295,10 +297,15 @@ int			ft_move_player_right(t_game *g);
 int			ft_move_player_up(t_game *g);
 int			ft_move_player_down(t_game *g);
 int			ft_attack_player(t_game *g);
+int			ft_draw_attack(t_game *g);
 int			ft_kill_enemy_left(t_game *g);
 int			ft_kill_enemy_right(t_game *g);
 int			ft_kill_enemy_up(t_game *g);
 int			ft_kill_enemy_down(t_game *g);
+int			ft_draw_attack_left(t_game *g);
+int			ft_draw_attack_right(t_game *g);
+int			ft_draw_attack_up(t_game *g);
+int			ft_draw_attack_down(t_game *g);
 
 int			ft_afplay(t_game *g, char *path, int volume);
 int			ft_init_sounds(t_game *g);

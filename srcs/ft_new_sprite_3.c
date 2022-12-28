@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 11:19:54 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 12:00:00 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 17:52:01 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 int	ft_new_attack(t_game *g, int row, int column, int frame)
 {
 	void	*img;
+	int		deg;
 	int		width;
 	int		height;
 
-	img = mlx_xpm_file_to_image(g->mlx, g->sprites.attack.path[frame],
+	deg = g->sprites.player.deg - 5;
+	img = mlx_xpm_file_to_image(g->mlx, g->sprites.attack.path[deg][frame],
 			&width, &height);
 	if (!img)
 		return (ft_error(g, "Failed to load attack xpm."));

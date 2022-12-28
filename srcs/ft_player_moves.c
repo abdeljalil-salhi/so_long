@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 03:09:41 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 05:21:51 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/27 16:35:45 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_move_player_left(t_game *g)
 	int	r;
 	int	c;
 
-	if (g->paused)
+	if (g->paused || g->freezed)
 		return (0);
 	r = g->sprites.player.pos.r;
 	c = g->sprites.player.pos.c;
@@ -61,7 +61,7 @@ int	ft_move_player_right(t_game *g)
 	int	r;
 	int	c;
 
-	if (g->paused)
+	if (g->paused || g->freezed)
 		return (0);
 	r = g->sprites.player.pos.r;
 	c = g->sprites.player.pos.c;
@@ -83,7 +83,7 @@ int	ft_move_player_up(t_game *g)
 	int	r;
 	int	c;
 
-	if (g->paused)
+	if (g->paused || g->freezed)
 		return (0);
 	r = g->sprites.player.pos.r;
 	c = g->sprites.player.pos.c;
@@ -105,7 +105,7 @@ int	ft_move_player_down(t_game *g)
 	int	r;
 	int	c;
 
-	if (g->paused)
+	if (g->paused || g->freezed)
 		return (0);
 	r = g->sprites.player.pos.r;
 	c = g->sprites.player.pos.c;
