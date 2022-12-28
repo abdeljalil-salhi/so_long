@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 02:18:09 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/28 21:42:11 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 23:22:20 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_read_file(t_game *g)
 	s.rows = 0;
 	g->map.file.fd = open(g->map.file.name, O_RDONLY);
 	if (g->map.file.fd == -1)
-		return (ft_error(g, "File not found."));
+		return (ft_error(g, "File not found (or check your permissions)."));
 	while (1)
 	{
 		s.row = get_next_line(g->map.file.fd);
