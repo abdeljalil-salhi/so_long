@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:55:11 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/28 21:42:33 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 22:18:38 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,12 @@ typedef struct s_quickfill
 	int	depth;
 }	t_quickfill;
 
+typedef struct s_infos
+{
+	char	*avatar[2];
+	char	*energy[4];
+}	t_infos;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -189,6 +195,7 @@ typedef struct s_game
 	t_map		map;
 	char		*exit_message;
 	t_sprites	sprites;
+	t_infos		infos;
 	t_sounds	sounds;
 	int			n_collectibles;
 	t_collecs	*collectibles;
@@ -264,6 +271,7 @@ int			ft_init_enemy(t_game *g);
 int			ft_init_border(t_game *g);
 int			ft_init_saiyan(t_game *g);
 int			ft_init_attack(t_game *g);
+int			ft_init_infos(t_game *g);
 int			ft_new_wall(t_game *g, int row, int column);
 int			ft_new_ground(t_game *g, int row, int column);
 int			ft_new_player(t_game *g, int row, int column);
@@ -275,6 +283,8 @@ int			ft_new_centered(t_game *g, char *path);
 int			ft_new_tip(t_game *g, int color);
 int			ft_new_saiyan(t_game *g, int row, int column);
 int			ft_new_attack(t_game *g, int row, int column, int frame);
+int			ft_new_avatar(t_game *g);
+int			ft_new_energy(t_game *g);
 int			ft_check_components(t_game *g, int frame);
 int			ft_draw_upper_layer(t_game *g);
 int			ft_render(t_game *g);
@@ -286,6 +296,7 @@ int			ft_attack_render(t_game *g);
 int			ft_draw_render(t_game *g, int i, int j);
 int			ft_borders_render(t_game *g, int i, int j);
 void		ft_render_manager(t_game *g);
+int			ft_infos_manager(t_game *g);
 int			ft_draw_borders(t_game *g);
 int			ft_draw(t_game *g);
 

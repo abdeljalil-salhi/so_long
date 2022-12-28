@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:30:00 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/28 19:42:55 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 22:19:06 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,16 @@ int	ft_init_attack(t_game *g)
 	g->sprites.attack.path[3][2] = "assets/attack/attack_3_3.xpm";
 	g->sprites.attack.attacking = 0;
 	g->sprites.attack.duration = 0;
+	return (0);
+}
+
+int	ft_init_infos(t_game *g)
+{
+	g->infos.avatar[0] = "assets/player_normal.xpm";
+	g->infos.avatar[1] = "assets/player_saiyan.xpm";
+	g->infos.energy[0] = "assets/energy/energy_0.xpm";
+	g->infos.energy[1] = "assets/energy/energy_1.xpm";
+	g->infos.energy[2] = "assets/energy/energy_2.xpm";
+	g->infos.energy[3] = "assets/energy/energy_3.xpm";
 	return (0);
 }

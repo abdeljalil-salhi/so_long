@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 03:18:32 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/28 21:13:23 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 22:02:15 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	ft_draw_upper_layer(t_game *g)
 	if (g->sprites.attack.attacking)
 		if (ft_attack_render(g))
 			return (1);
+	if (ft_infos_manager(g))
+		return (1);
 	return (0);
 }
 

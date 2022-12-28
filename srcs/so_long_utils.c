@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 02:18:57 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/28 17:51:28 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 22:18:19 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static int	ft_init_sprites(t_game *g)
 	if (ft_init_saiyan(g))
 		return (1);
 	if (ft_init_attack(g))
+		return (1);
+	if (ft_init_infos(g))
 		return (1);
 	return (0);
 }

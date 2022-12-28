@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 05:46:37 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/28 21:45:50 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 23:15:10 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static void	ft_display_infos(t_game *g, int occur[OCCURENCES])
 	ft_printf("Displaying informations about (%s)...\n\n", g->map.file.name);
 	ft_printf("The width of this map is %d.\n", g->win.width);
 	ft_printf("The height of this map is %d.\n", g->win.height);
+	if (g->win.width < 15 || g->win.height < 7)
+		ft_printf("It is recommended to use a 20x12 map.\n");
 	ft_printf("This map contains %d empty space(s).\n", occur[0]);
 	ft_printf("This map contains %d wall(s).\n", occur[1]);
 	ft_printf("This map contains %d player(s).\n", occur[2]);

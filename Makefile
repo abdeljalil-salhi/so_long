@@ -6,7 +6,7 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/17 01:18:36 by absalhi           #+#    #+#              #
-#    Updated: 2022/12/28 20:52:17 by absalhi          ###   ########.fr        #
+#    Updated: 2022/12/28 23:19:13 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,8 +60,7 @@ play	:	$(OBJS)
 			@./$(NAME) maps/level1.ber
 			@./$(NAME) maps/level2.ber
 			@./$(NAME) maps/level3.ber
-			@./$(NAME) maps/level4.ber
-			@./$(NAME) maps/level5.ber
+			@echo $(GREEN)"You won ? lost ? Congratulations anyways !"$(NONE)
 
 re		:	fclean all
 

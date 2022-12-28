@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 19:55:12 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/28 21:16:42 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 22:34:57 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,13 @@ void	ft_render_manager(t_game *g)
 		ft_exit_error(g, g->exit_message);
 	if (ft_animate_collectibles(g))
 		ft_exit_error(g, g->exit_message);
+}
+
+int	ft_infos_manager(t_game *g)
+{
+	if (ft_new_avatar(g))
+		return (1);
+	if (ft_new_energy(g))
+		return (1);
+	return (0);
 }

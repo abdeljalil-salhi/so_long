@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 19:44:58 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/28 21:15:32 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 22:29:03 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_stop_attack_render(t_game *g)
 		g->sprites.player.saiyan = 0;
 		g->sprites.player.deg -= 5;
 		g->freezed = 0;
+		g->energy = 0;
 		if (open(TMP, O_CREAT | O_WRONLY | O_TRUNC, 0644) < 0)
 			ft_exit_error(g, "Error while creating temporary file.");
 		ft_stop_sound_track(g);

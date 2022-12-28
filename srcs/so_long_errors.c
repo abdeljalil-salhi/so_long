@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 02:45:48 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/28 21:42:22 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 22:43:22 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ void	ft_exit_error(t_game *g, char *str)
 		free(g->collectibles);
 	if (g->allocated.enemies)
 		free(g->enemies);
+	if (open(TMP, O_CREAT | O_WRONLY | O_TRUNC, 0644) < 0)
+		ft_exit_error(g, "Error while creating temporary file.");
 	ft_stop_sound_track(g);
-	if (!access(TMP, R_OK))
-		unlink(TMP);
+	unlink(TMP);
 	exit(1);
 }
 
