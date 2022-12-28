@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 03:18:32 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 18:04:09 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 17:03:42 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ int	ft_check_components(t_game *g, int frame)
 	{
 		g->last_saiyan = g->collected;
 		g->sprites.player.saiyan = 1;
+		if (open(TMP, O_CREAT | O_WRONLY | O_TRUNC, 0644) < 0)
+			ft_exit_error(g, "Error while creating temporary file.");
+		ft_stop_sound_track(g);
+		unlink(TMP);
+		//g->allocated.sound_track = 1;
+		ft_play_sound_track(g, 1);
 	}
 	if (g->sprites.player.saiyan)
 	{
@@ -55,6 +61,12 @@ int	ft_check_components(t_game *g, int frame)
 			g->sprites.player.saiyan = 0;
 			g->sprites.player.deg -= 5;
 			g->freezed = 0;
+			if (open(TMP, O_CREAT | O_WRONLY | O_TRUNC, 0644) < 0)
+				ft_exit_error(g, "Error while creating temporary file.");
+			ft_stop_sound_track(g);
+			unlink(TMP);
+			//g->allocated.sound_track = 1;
+			ft_play_sound_track(g, 0);
 		}
 	}
 	return (0);

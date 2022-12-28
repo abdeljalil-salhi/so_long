@@ -6,13 +6,14 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/17 01:18:36 by absalhi           #+#    #+#              #
-#    Updated: 2022/12/27 14:53:47 by absalhi          ###   ########.fr        #
+#    Updated: 2022/12/28 17:21:15 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	so_long
 
-CFLAGS	=	-Wall -Wextra -Werror -O3 -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -O3 #-fsanitize=address
+MXFLAGS	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 CC		=	cc
 RM		=	rm -rf
 
@@ -39,7 +40,7 @@ all		:	$(NAME)
 $(NAME)	:	$(OBJS)
 			@echo $(ITALIC)$(GRAY) "     - Compiling $(NAME)..." $(NONE)
 			@make -C libft/
-			@$(CC) $(CFLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit -L libft/ -lft $(OBJS) -o $(NAME)
+			@$(CC) $(CFLAGS) $(MXFLAGS) -L libft/ -lft $(OBJS) -o $(NAME)
 			@echo $(GREEN)"- Compiled -"$(NONE)
 
 clean	:
@@ -52,9 +53,18 @@ fclean	:	clean
 			@$(RM) $(NAME)
 			@make fclean -C libft/
 
-play	:	$(NAME)
-			@./$(NAME) map.ber
+play	:	$(OBJS)
+			@make -C libft/
+			@$(CC) $(CFLAGS) $(MXFLAGS) -L libft/ -lft $(OBJS) -o $(NAME)
+			@echo $(GREEN)"- Compiled -"$(NONE)
+			@./$(NAME) maps/level1.ber
+			@./$(NAME) maps/level2.ber
+			@./$(NAME) maps/level3.ber
+			@./$(NAME) maps/level4.ber
+			@./$(NAME) maps/level5.ber
 
 re		:	fclean all
 
-.PHONY	:	all clean fclean re play
+replay	:	fclean play
+
+.PHONY	:	all clean play fclean re replay

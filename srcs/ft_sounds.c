@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 11:32:03 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 06:16:14 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 16:52:25 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,21 @@ int	ft_init_sounds(t_game *g)
 	return (0);
 }
 
-void	ft_play_sound_track(t_game *g)
+void	ft_play_sound_track(t_game *g, int saiyan)
 {
+	char	*soundtrack;
+
+	if (saiyan)
+		soundtrack = g->sounds.saiyan;
+	else
+		soundtrack = g->sounds.soundtrack;
 	g->pid.sound_track = fork();
 	if (g->pid.sound_track == -1)
 		ft_exit_error(g, "Failed creating the fork for the sound track.");
 	if (!g->pid.sound_track)
 	{
 		while (access(TMP, R_OK) == -1)
-			if (ft_afplay(g, g->sounds.soundtrack, 0))
+			if (ft_afplay(g, soundtrack, 0))
 				ft_exit_error(g, g->exit_message);
 		exit(0);
 	}

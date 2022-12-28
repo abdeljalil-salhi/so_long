@@ -6,7 +6,7 @@
 /*   By: absalhi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 01:55:11 by absalhi           #+#    #+#             */
-/*   Updated: 2022/12/27 17:34:19 by absalhi          ###   ########.fr       */
+/*   Updated: 2022/12/28 17:20:53 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,7 +309,7 @@ int			ft_draw_attack_down(t_game *g);
 
 int			ft_afplay(t_game *g, char *path, int volume);
 int			ft_init_sounds(t_game *g);
-void		ft_play_sound_track(t_game *g);
+void		ft_play_sound_track(t_game *g, int saiyan);
 void		ft_play_sound_effect(t_game *g, char *sound);
 
 int			ft_deep_copy_map(t_game *g);
