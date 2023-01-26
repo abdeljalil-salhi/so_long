@@ -13,3 +13,5 @@ This project is a very small 2D game.
 - Broly and Fat Buu as enemies
 - DBZ theme sound in background
 - Sound effects
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fabdeljalil-salhi%2Fso_long&count_bg=%234ECF63&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=REPO+VIEWS&edge_flat=true)](https://hits.seeyoufarm.com)
